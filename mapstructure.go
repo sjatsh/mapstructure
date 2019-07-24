@@ -412,7 +412,11 @@ func (d *Decoder) decodeInt(name string, data interface{}, val reflect.Value) er
 			val.SetInt(0)
 		}
 	case dataKind == reflect.String && d.config.WeaklyTypedInput:
-		i, err := strconv.ParseInt(dataVal.String(), 0, val.Type().Bits())
+		dataInput := dataVal.String()
+		if "" == dataInput {
+			dataInput = "0"
+		}
+		i, err := strconv.ParseInt(dataInput, 0, val.Type().Bits())
 		if err == nil {
 			val.SetInt(i)
 		} else {
@@ -463,7 +467,11 @@ func (d *Decoder) decodeUint(name string, data interface{}, val reflect.Value) e
 			val.SetUint(0)
 		}
 	case dataKind == reflect.String && d.config.WeaklyTypedInput:
-		i, err := strconv.ParseUint(dataVal.String(), 0, val.Type().Bits())
+		dataInput := dataVal.String()
+		if "" == dataInput {
+			dataInput = "0"
+		}
+		i, err := strconv.ParseUint(dataInput, 0, val.Type().Bits())
 		if err == nil {
 			val.SetUint(i)
 		} else {
@@ -528,7 +536,11 @@ func (d *Decoder) decodeFloat(name string, data interface{}, val reflect.Value) 
 			val.SetFloat(0)
 		}
 	case dataKind == reflect.String && d.config.WeaklyTypedInput:
-		f, err := strconv.ParseFloat(dataVal.String(), val.Type().Bits())
+		dataInput := dataVal.String()
+		if "" == dataInput {
+			dataInput = "0"
+		}
+		f, err := strconv.ParseFloat(dataInput, val.Type().Bits())
 		if err == nil {
 			val.SetFloat(f)
 		} else {
