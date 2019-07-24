@@ -278,9 +278,9 @@ func (d *Decoder) decode(name string, input interface{}, outVal reflect.Value) e
 		err = d.decodeBasic(name, input, outVal)
 	case reflect.String:
 		err = d.decodeString(name, input, outVal)
-	case reflect.Int:
+	case reflect.Int, reflect.Int64, reflect.Int32, reflect.Int16, reflect.Int8:
 		err = d.decodeInt(name, input, outVal)
-	case reflect.Uint:
+	case reflect.Uint, reflect.Uint64, reflect.Uint32, reflect.Uint16, reflect.Uint8:
 		err = d.decodeUint(name, input, outVal)
 	case reflect.Float32:
 		err = d.decodeFloat(name, input, outVal)
